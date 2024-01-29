@@ -5,12 +5,9 @@ import { WelcomeComponent } from '../welcome/welcome.component';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [
-    CommonModule,
-    WelcomeComponent
-  ],
+  imports: [CommonModule, WelcomeComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class HomeComponent { }
+export class HomeComponent {}

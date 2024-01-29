@@ -1,20 +1,65 @@
-<div class="container-sm px-5">
-  <div class="container text-center shadow rounded">
+<div class="container-sm px-5 mt-5">
+  <div class="container text-center shadow rounded-5">
     <div class="row align-items-center">
       <div class="col px-5 mt-3 mb-3 text-start">
         <h1 class="fw-bold">Seo</h1>
-        <h6 class="fw-light">Programació d'una web responsive</h6>
+        <h6 class="fw-light">Programació d'una web responsive completa.</h6>
       </div>
       <div class="col">
         <h2 class="fw-bold">300 <span class="fs-6">€</span></h2>
       </div>
       <div class="col">
-        <div class="form-check">
-          <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-          <label class="form-check-label" for="flexRadioDefault1">
-            Afegir
-          </label>
-        </div>
+        <form [formGroup]="checkBoxForm">
+          <input type="checkbox" id="checkboxSeo" formControlName="checkboxSeo" (change)="onSubmit()">
+          <label for="checkboxSeo" class="ms-3">Afegir</label>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center shadow rounded-5 mt-5">
+    <div class="row align-items-center">
+      <div class="col px-5 mt-3 mb-3 text-start">
+        <h1 class="fw-bold">Ads</h1>
+        <h6 class="fw-light">Programació d'una web responsive completa.</h6>
+      </div>
+      <div class="col">
+        <h2 class="fw-bold">400 <span class="fs-6">€</span></h2>
+      </div>
+      <div class="col">
+        <form [formGroup]="checkBoxForm">
+          <input type="checkbox" id="checkboxAds" formControlName="checkboxAds" (change)="onSubmit()">
+          <label for="checkboxAds" class="ms-3">Afegir</label>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container text-center shadow rounded-5 mt-5">
+    <div class="row align-items-center">
+      <div class="col px-5 mt-3 mb-3 text-start">
+        <h1 class="fw-bold">Web</h1>
+        <h6 class="fw-light">Programació d'una web responsive completa.</h6>
+      </div>
+      <div class="col">
+        <h2 class="fw-bold">500 <span class="fs-6">€</span></h2>
+      </div>
+      <div class="col">
+        <form [formGroup]="checkBoxForm">
+          <input type="checkbox" id="checkboxWeb" formControlName="checkboxWeb" (change)="onSubmit()">
+          <label for="checkboxWeb" class="ms-3">Afegir</label>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-sd">
+    <div class="row mt-5">
+      <div class="col-8 text-end">
+        <h3 class="fw-bold">Preu pressupostat: </h3>
+      </div>
+      <div class="col-4 text-start fw-bold">
+        <h2 class="fw-bold"> {{total}} <span class="fs-5">€</span></h2>
       </div>
     </div>
   </div>

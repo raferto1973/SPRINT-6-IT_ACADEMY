@@ -4,11 +4,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 @Component({
   selector: 'app-panel',
   standalone: true,
-  imports: [
-    CommonModule,
-  ],
+  imports: [CommonModule],
   templateUrl: './panel.component.html',
   styleUrl: './panel.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PanelComponent { }
+export class PanelComponent {}
