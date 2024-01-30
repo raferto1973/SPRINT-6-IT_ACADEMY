@@ -1,18 +1,23 @@
+<div class="container text-end mt-3">
+
+  <form [formGroup]="webForm">
+    <div class="my-2">
+      <label class="fs-6 fw-light mx-3" for="pages">Nombre de pàgines:</label>
+      <button class="rounded-circle mx-2 button-custom" (click)="decrementPages()">─</button>
+      <input class="btn btn-outline-secondary rounded-3 px-3" type="button" id="pages" formControlName="pages">
+      <button class="rounded-circle mx-2 button-custom" (click)="incrementPages()">+</button>
+    </div>
 
 
-<form [formGroup]="webForm">
-
-  <label for="pages">Nombre de pàgines:</label>
-  <button (click)="decrementPages()">-</button>
-  <input type="number" id="pages" formControlName="pages">
-  <button (click)="incrementPages()">+</button>
-
-  <label for="languages">Nombre d'idiomes:</label>
-  <button (click)="decrementlanguages()">-</button>
-  <input type="number" id="languages" formControlName="languages">
-  <button (click)="incrementLanguages()">+</button>
+    <div class="my-2">
+      <label class="fs-6 fw-light mx-3" for="languages">Nombre d'idiomes:</label>
+      <button class="rounded-circle mx-2 button-custom" (click)="decrementLanguages()">─</button>
+      <input class="btn btn-outline-secondary rounded-3 px-3" type="button" id="languages" formControlName="languages">
+      <button class="rounded-circle mx-2 button-custom" (click)="incrementLanguages()">+</button>
+    </div>
 
 
-  <p>Cost total: {{totalCost}} €</p>
+    <p class="me-3 mt-3">Cost extra: {{totalCost}} €</p>
 
-</form>
+  </form>
+</div>

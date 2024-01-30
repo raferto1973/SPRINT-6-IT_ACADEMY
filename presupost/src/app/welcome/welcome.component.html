@@ -1,29 +1,30 @@
 <div class="container-sm px-5 mt-5" *ngFor="let servicio of servicios">
   <div class="container text-center shadow rounded-5">
-    <div class="row align-items-center">
-      <div class="col px-5 mt-3 mb-3 text-start">
-        <h1 class="fw-bold">{{ servicio.nombre }}</h1>
-        <h6 class="fw-light">{{ servicio.descripcion }}</h6>
+    <div class="row">
+      <div class="row align-items-center">
+        <div class="col px-5 mt-3 mb-3 text-start">
+          <h1 class="fw-bold">{{ servicio.nombre }}</h1>
+          <h6 class="fw-light">{{ servicio.descripcion }}</h6>
+        </div>
+        <div class="col">
+          <h2 class="fw-bold">{{ servicio.precio }} <span class="fs-6">€</span></h2>
+        </div>
+        <div class="col">
+          <form [formGroup]="checkBoxForm">
+            <input type="checkbox" id="{{ servicio.checkbox }}" formControlName="{{ servicio.checkbox }}"
+              (change)="onSubmit()">
+            <label for="{{ servicio.checkbox }}" class="ms-3">Afegir</label>
+          </form>
+        </div>
       </div>
-      <div class="col">
-        <h2 class="fw-bold">{{ servicio.precio }} <span class="fs-6">€</span></h2>
-      </div>
-      <div class="col">
-        <form [formGroup]="checkBoxForm">
-          <input type="checkbox" id="{{ servicio.checkbox }}" formControlName="{{ servicio.checkbox }}"
-            (change)="onSubmit()">
-          <label for="{{ servicio.checkbox }}" class="ms-3">Afegir</label>
-          <!-- <div class="container">
-            *ngIf="checkBoxForm.controls['checkboxWeb'].value"
-            <app-panel></app-panel>
-          </div> -->
-        </form>
+    </div>
+    <div class="row me-5">
+      <div class="container " *ngIf="checkBoxForm.controls['checkboxWeb'].value && servicio.nombre === 'Web'">
+        <app-panel></app-panel>
       </div>
     </div>
   </div>
 </div>
-
-
 
 <div class="container-sd">
   <div class="row mt-5">
