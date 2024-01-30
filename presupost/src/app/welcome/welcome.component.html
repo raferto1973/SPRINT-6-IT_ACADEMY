@@ -1,4 +1,7 @@
+<!-- Contenedor principal con un bucle para cada servicio -->
 <div class="container-sm px-5 mt-5" *ngFor="let servicio of servicios">
+
+  <!-- Contenedor para cada servicio -->
   <div class="container text-center shadow rounded-5">
     <div class="row">
       <div class="row align-items-center">
@@ -18,6 +21,8 @@
         </div>
       </div>
     </div>
+
+    <!-- Sección para el componente 'app-panel' si el servicio es 'Web' -->
     <div class="row me-5">
       <div class="container " *ngIf="checkBoxForm.controls['checkboxWeb'].value && servicio.nombre === 'Web'">
         <app-panel></app-panel>
@@ -26,6 +31,7 @@
   </div>
 </div>
 
+<!-- Sección para mostrar el precio presupuestado -->
 <div class="container-sd">
   <div class="row mt-5">
     <div class="col-8 text-end">

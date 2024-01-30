@@ -1,6 +1,10 @@
+<!-- Contenedor principal -->
 <div class="container text-end mt-3">
 
+  <!-- Formulario con el grupo de formularios 'webForm' -->
   <form [formGroup]="webForm">
+
+    <!-- Sección para seleccionar el número de páginas -->
     <div class="my-2">
       <label class="fs-6 fw-light mx-3" for="pages">Nombre de pàgines:</label>
       <button class="rounded-circle mx-2 button-custom" (click)="decrementPages()">─</button>
@@ -8,7 +12,7 @@
       <button class="rounded-circle mx-2 button-custom" (click)="incrementPages()">+</button>
     </div>
 
-
+    <!-- Sección para seleccionar el número de idiomas -->
     <div class="my-2">
       <label class="fs-6 fw-light mx-3" for="languages">Nombre d'idiomes:</label>
       <button class="rounded-circle mx-2 button-custom" (click)="decrementLanguages()">─</button>
@@ -16,7 +20,7 @@
       <button class="rounded-circle mx-2 button-custom" (click)="incrementLanguages()">+</button>
     </div>
 
-
+    <!-- Sección para mostrar el costo extra -->
     <p class="me-3 mt-3">Cost extra: {{totalCost}} €</p>
 
   </form>
