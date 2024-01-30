@@ -1,8 +1,11 @@
+
 import { Injectable } from '@angular/core';
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class BudgetService {
-  constructor() {}
+  calculateCost(pages: number, languages: number): number {
+    return pages * languages * 30;
+  }
 }

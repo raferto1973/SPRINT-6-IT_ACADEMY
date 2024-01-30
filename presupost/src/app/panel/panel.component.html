@@ -1,1 +1,18 @@
-<p>panel works!</p>,
+
+
+<form [formGroup]="webForm">
+
+  <label for="pages">Nombre de pàgines:</label>
+  <button (click)="decrementPages()">-</button>
+  <input type="number" id="pages" formControlName="pages">
+  <button (click)="incrementPages()">+</button>
+
+  <label for="languages">Nombre d'idiomes:</label>
+  <button (click)="decrementlanguages()">-</button>
+  <input type="number" id="languages" formControlName="languages">
+  <button (click)="incrementLanguages()">+</button>
+
+
+  <p>Cost total: {{totalCost}} €</p>
+
+</form>
