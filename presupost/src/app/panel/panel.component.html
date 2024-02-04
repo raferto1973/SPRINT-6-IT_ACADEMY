@@ -1,27 +1,46 @@
-<!-- Contenedor principal -->
-<div class="container text-end mt-3">
+<!-- panel.component.html -->
 
-  <!-- Formulario con el grupo de formularios 'webForm' -->
-  <form [formGroup]="webForm">
+<app-modal [content]="modalContent" (openModalEvent)="openModal($event)"></app-modal>
 
-    <!-- Sección para seleccionar el número de páginas -->
-    <div class="my-2">
-      <label class="fs-6 fw-light mx-3" for="pages">Nombre de pàgines:</label>
-      <button class="rounded-circle mx-2 button-custom" (click)="decrementPages()">─</button>
-      <input class="btn btn-outline-secondary rounded-3 px-3" type="button" id="pages" formControlName="pages">
-      <button class="rounded-circle mx-2 button-custom" (click)="incrementPages()">+</button>
+<div class="panel">
+  <form [formGroup]="panelForm">
+    <div class="form-group">
+      <div class="row">
+        <div class="col-auto p-0">
+          <button type="button" class="btn btn rounded-circle btn-info-modal me-2"
+            (click)="openModal('numberOfPages')">ℹ️</button>
+          <label for="numberOfPages">Nombre de Pàgines:</label>
+        </div>
+        <div class="col-auto">
+          <div class="input-group">
+            <button class="btn btn-outline-primary" type="button" (click)="decrementPages()">-</button>
+            <input class="form-control small-input" type="number" id="numberOfPages" formControlName="numberOfPages"
+              min="1" max="99" step="1" (input)="emitSendForm(); validatorInput($event)" placeholder="0" />
+            <button class="btn btn-outline-primary" type="button" (click)="incrementPages()">+</button>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <!-- Sección para seleccionar el número de idiomas -->
-    <div class="my-2">
-      <label class="fs-6 fw-light mx-3" for="languages">Nombre d'idiomes:</label>
-      <button class="rounded-circle mx-2 button-custom" (click)="decrementLanguages()">─</button>
-      <input class="btn btn-outline-secondary rounded-3 px-3" type="button" id="languages" formControlName="languages">
-      <button class="rounded-circle mx-2 button-custom" (click)="incrementLanguages()">+</button>
+    <div class="form-group">
+      <div class="row">
+        <div class="col-auto p-0">
+          <button type="button" class="btn rounded-circle btn-info-modal me-2"
+            (click)="openModal('numberOfLanguages')">ℹ️</button>
+          <label for="numberOfLanguages">Nombre de llenguatges:</label>
+        </div>
+        <div class="col-auto">
+          <div class="input-group">
+            <button class="btn btn-outline-primary" type="button" (click)="decrementLanguages()">-</button>
+            <input class="form-control small-input" type="number" id="numberOfLanguages"
+              formControlName="numberOfLanguages" min="1" max="99" step="1"
+              (input)="emitSendForm(); validatorInput($event)" placeholder="0" />
+            <button class="btn btn-outline-primary" type="button" (click)="incrementLanguages()">+</button>
+          </div>
+          <!-- Sección para mostrar el costo extra -->
+          <p class="me-3 mt-3">Cost extra: €</p>
+        </div>
+      </div>
     </div>
-
-    <!-- Sección para mostrar el costo extra -->
-    <p class="me-3 mt-3">Cost extra: {{totalCost}} €</p>
-
   </form>
 </div>

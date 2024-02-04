@@ -1,18 +1,12 @@
-// Importamos los módulos necesarios de Angular
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
+import { BudgetsListComponent } from '../budgets-list/budgets-list.component';
+import { WelcomeComponent } from '../shared/welcome/welcome.component';
 
-// Importamos los componentes personalizados
-import { WelcomeComponent } from '../welcome/welcome.component';
-import { PanelComponent } from '../panel/panel.component';
-
-// Decorador del componente
 @Component({
-  selector: 'app-home', // Selector del componente
-  standalone: true, // Indica que el componente puede existir de forma independiente
-  imports: [CommonModule, WelcomeComponent, PanelComponent], // Importaciones necesarias para el componente
-  templateUrl: './home.component.html', // Plantilla HTML del componente
-  styleUrl: './home.component.css', // Estilos CSS del componente
-  changeDetection: ChangeDetectionStrategy.OnPush, // Estrategia de detección de cambios
+  selector: 'app-home',
+  standalone: true,
+  imports: [BudgetsListComponent, WelcomeComponent],
+  templateUrl: './home.component.html',
+  styleUrl: './home.component.scss',
 })
-export class HomeComponent {} // Clase del componente
+export class HomeComponent {}
