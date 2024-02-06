@@ -15,10 +15,7 @@ input[type="number"]::-webkit-outer-spin-button {
   width: 4rem;
 }
 
-.btn-info-modal {
-  width: 2rem;
-  height: 2rem;
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
+.btn-info-per {
+  width: 25px;
+  height: 25px;
 }

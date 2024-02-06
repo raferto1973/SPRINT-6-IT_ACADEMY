@@ -8,9 +8,9 @@
     <div class="form-group">
       <div class="row">
         <div class="col-auto p-0">
-          <button type="button" class="btn btn rounded-circle btn-info-modal me-2"
-            (click)="openModal('numberOfPages')">ℹ️</button>
-          <label for="numberOfPages">Nombre de Pàgines:</label>
+          <button type="button" class="btn btn btn-sm btn-outline-primary me-3 btn-info-per"
+            (click)="openModal('numberOfPages')"><span> ℹ️ </span></button>
+          <label class="mt-2" for="numberOfPages">Nombre de Pàgines:</label>
         </div>
         <div class="col-auto">
           <div class="input-group">
@@ -26,13 +26,13 @@
     <div class="form-group">
       <div class="row">
         <div class="col-auto p-0">
-          <button type="button" class="btn rounded-circle btn-info-modal me-2"
-            (click)="openModal('numberOfLanguages')">ℹ️</button>
-          <label for="numberOfLanguages">Nombre de llenguatges:</label>
+          <button type="button" class="btn btn btn-sm btn-outline-primary me-3 btn-info-per"
+            (click)="openModal('numberOfLanguages')"><span> ℹ️ </span></button>
+          <label class="mt-2" for="numberOfLanguages">Nombre de llenguatges:</label>
         </div>
         <div class="col-auto">
           <div class="input-group">
-            <button class="btn btn-outline-primary" type="button" (click)="decrementLanguages()">-</button>
+            <button class="btn btn-outline-primary" type="button"  (click)="decrementLanguages()">-</button>
             <input class="form-control small-input" type="number" id="numberOfLanguages"
               formControlName="numberOfLanguages" min="1" max="99" step="1"
               (input)="emitSendForm(); validatorInput($event)" placeholder="1" />

@@ -1,14 +1,9 @@
+
 // budgets-list.component.ts
 
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  FormGroup,
-  Validators,
-  FormsModule,
-} from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, FormsModule, } from '@angular/forms';
 
 import { BudgetService } from '../services/budget.service';
 import { PanelComponent } from '../panel/panel.component';
@@ -86,7 +81,6 @@ export class BudgetsListComponent {
     });
   }
 
-  // Mètode que s'executa al inizialitzar el component
   ngOnInit() {
     // Ens hem subscrit als canvis del formulari
     this.checkBoxForm.valueChanges.subscribe((val) => {
