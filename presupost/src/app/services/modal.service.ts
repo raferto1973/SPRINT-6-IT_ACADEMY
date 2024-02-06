@@ -10,6 +10,7 @@ export class ModalService {
   private openModalSource = new Subject<string>();
 
   openModal$ = this.openModalSource.asObservable();
+  showModal: any;
 
   openModal(contentType: string) {
     console.log('openModal(contentType: string) ');

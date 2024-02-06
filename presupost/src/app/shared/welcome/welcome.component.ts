@@ -1,10 +1,22 @@
-import { Component } from '@angular/core';
+
+
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-welcome',
   standalone: true,
-  imports: [],
+  imports: [ CommonModule ],
   templateUrl: './welcome.component.html',
-  styleUrl: './welcome.component.scss',
+  styleUrls: ['./welcome.component.css'],
 })
-export class WelcomeComponent {}
+
+
+export class WelcomeComponent implements OnInit {
+  ngOnInit(): void {
+    throw new Error('Method not implemented.');
+  }
+}
+
+

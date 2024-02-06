@@ -1,91 +1,29 @@
-// budget.service.ts
-
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
-
-import { Budget } from '../../models/budget.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BudgetService {
-  private budgetsSubject = new BehaviorSubject<Array<Budget>>([]);
-  private budgetsObservable = this.budgetsSubject.asObservable();
 
-  constructor() {}
+  private costSource = new BehaviorSubject(0);        // Font de dades per el cost
+  currentCost = this.costSource.asObservable();       // Observable per el cost actual
 
-  getBudgets$(): Observable<Array<Budget>> {
-    return this.budgetsObservable;
+  // Métode per calcular el cost
+  calculateCost(pages: number, languages: number): number {
+    let cost = pages * languages * 30;                // Calculem el cost
+    this.changeCost(cost);                            // Cambiem el cost
+    return cost;                                      // Returnem el cost
   }
 
-  getBudgetsSync(): Budget[] {
-    return this.budgetsSubject.getValue();
+  // Métode per cambiar el cost
+  changeCost(cost: number) {
+    this.costSource.next(cost);                       // Actualitzem la font de dades amb el nou cost
   }
 
-  addBudget(budget: Budget) {
-    const currentBudgets = this.budgetsSubject.getValue();
-    const budgetWithDate = { ...budget, date: new Date() };
-    this.budgetsSubject.next([...currentBudgets, budgetWithDate]);
+  getCostSource() {
+    return this.costSource;
   }
 
-  calculateTotalBudget(
-    seo: boolean,
-    ads: boolean,
-    web: boolean,
-    webCost: number
-  ): number {
-    let total = 0;
 
-    if (seo) {
-      total += 300;
-    }
-
-    if (ads) {
-      total += 400;
-    }
-
-    if (web) {
-      total += 500;
-    }
-
-    return total + webCost;
-  }
-
-  sortBudgets(
-    budgets: Budget[],
-    sortBy: string,
-    sortDirection: 'asc' | 'desc'
-  ): Budget[] {
-    return budgets.sort((a, b) => {
-      if (sortBy === 'date') {
-        const dateA = a.date.getTime();
-        const dateB = b.date.getTime();
-
-        return sortDirection === 'asc' ? dateA - dateB : dateB - dateA;
-      } else if (sortBy === 'totalBudget') {
-        return sortDirection === 'asc'
-          ? a.totalBudget - b.totalBudget
-          : b.totalBudget - a.totalBudget;
-      } else {
-        const nameA = a.clientName.toLowerCase();
-        const nameB = b.clientName.toLowerCase();
-
-        return sortDirection === 'asc'
-          ? nameA.localeCompare(nameB)
-          : nameB.localeCompare(nameA);
-      }
-    });
-  }
-
-  sortBudgetsDate(budgets: Budget[], sortDirection: 'asc' | 'desc'): Budget[] {
-    return this.sortBudgets(budgets, 'date', sortDirection);
-  }
-
-  sortBudgetsTotal(budgets: Budget[], sortDirection: 'asc' | 'desc'): Budget[] {
-    return this.sortBudgets(budgets, 'totalBudget', sortDirection);
-  }
-
-  sortBudgetsName(budgets: Budget[], sortDirection: 'asc' | 'desc'): Budget[] {
-    return this.sortBudgets(budgets, 'clientName', sortDirection);
-  }
 }

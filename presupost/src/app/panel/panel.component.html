@@ -1,4 +1,5 @@
-<!-- panel.component.html -->
+
+<!-- panel component -->
 
 <app-modal [content]="modalContent" (openModalEvent)="openModal($event)"></app-modal>
 
@@ -15,7 +16,7 @@
           <div class="input-group">
             <button class="btn btn-outline-primary" type="button" (click)="decrementPages()">-</button>
             <input class="form-control small-input" type="number" id="numberOfPages" formControlName="numberOfPages"
-              min="1" max="99" step="1" (input)="emitSendForm(); validatorInput($event)" placeholder="0" />
+              min="1" max="99" step="1" (input)="emitSendForm(); validatorInput($event)" placeholder="1" />
             <button class="btn btn-outline-primary" type="button" (click)="incrementPages()">+</button>
           </div>
         </div>
@@ -34,11 +35,11 @@
             <button class="btn btn-outline-primary" type="button" (click)="decrementLanguages()">-</button>
             <input class="form-control small-input" type="number" id="numberOfLanguages"
               formControlName="numberOfLanguages" min="1" max="99" step="1"
-              (input)="emitSendForm(); validatorInput($event)" placeholder="0" />
+              (input)="emitSendForm(); validatorInput($event)" placeholder="1" />
             <button class="btn btn-outline-primary" type="button" (click)="incrementLanguages()">+</button>
           </div>
           <!-- Sección para mostrar el costo extra -->
-          <p class="me-3 mt-3">Cost extra: €</p>
+          <p class="me-3 mt-3">Cost extra: {{cost}} €</p>
         </div>
       </div>
     </div>

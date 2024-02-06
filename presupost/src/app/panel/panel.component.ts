@@ -1,19 +1,11 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnInit,
-  Output,
-  ViewChild,
-} from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+
+// panel.component.ts
+
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild, } from '@angular/core';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, } from '@angular/forms';
 
 import { ModalComponent } from '../shared/modal/modal.component';
+import { BudgetService } from '../services/budget.service';
 
 @Component({
   selector: 'app-panel',
@@ -23,7 +15,6 @@ import { ModalComponent } from '../shared/modal/modal.component';
   styleUrl: './panel.component.scss',
 })
 export class PanelComponent implements OnInit {
-  // 1. Se define la propiedad y define con una instancia de la clase EventEmitter
   @Output() sendForm = new EventEmitter<{
     numberOfPages: number;
     numberOfLanguages: number;
@@ -33,16 +24,19 @@ export class PanelComponent implements OnInit {
 
   panelForm!: FormGroup;
   modalContent: string = '';
-  numeroPagina = 0;
+  cost: number = 0;
 
   @ViewChild(ModalComponent, { static: false }) modalComponent?: ModalComponent;
+  costSource: any;
 
-  constructor(private fb: FormBuilder) {}
-
+  constructor(private fb: FormBuilder, private budgetService: BudgetService) {
+    this.budgetService.currentCost.subscribe(cost => this.cost = cost);
+  }
+  
   ngOnInit(): void {
     this.panelForm = this.fb.group({
-      numberOfPages: ['', Validators.min(0)],
-      numberOfLanguages: ['', Validators.min(0)],
+      numberOfPages: ['0', Validators.min(1)],
+      numberOfLanguages: ['0', Validators.min(1)],
     });
 
     // Escuchar cambios en el formulario del panel
@@ -53,13 +47,11 @@ export class PanelComponent implements OnInit {
 
   // Función para calcular el costo total del sitio web
   calculateWebCost() {
-    const pagesCost = this.panelForm.get('numberOfPages')?.value * 30;
-    const languagesCost = this.panelForm.get('numberOfLanguages')?.value * 30;
+    const pagesCost = this.panelForm.get('numberOfPages')?.value;
+    const languagesCost = this.panelForm.get('numberOfLanguages')?.value;
 
-    // Actualizar el costo del sitio web en el formulario principal
-    this.budgetForm.patchValue({
-      webCost: pagesCost + languagesCost,
-    });
+    // Utiliza el servicio para calcular el costo
+    this.cost = this.budgetService.calculateCost(pagesCost, languagesCost);
   }
 
   incrementPages() {
@@ -116,7 +108,7 @@ export class PanelComponent implements OnInit {
     // Actualizar el valor en el formulario después de la validación
     this.panelForm.get(input.id)?.setValue(input.value);
 
-    // Emitir el formulario actualizado
-    this.emitSendForm();
+    // // Emitir el formulario actualizado
+    // this.emitSendForm();
   }
 }
