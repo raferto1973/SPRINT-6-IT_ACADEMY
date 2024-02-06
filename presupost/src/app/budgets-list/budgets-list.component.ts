@@ -25,6 +25,8 @@ interface Service {
   styleUrl: './budgets-list.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
+
+
 export class BudgetsListComponent {
   cdr: any;
   updateBudget($event: Event) {
@@ -67,7 +69,8 @@ export class BudgetsListComponent {
   constructor(
     private formBuilder: FormBuilder, // Injecció de dependencies per FormBuilder
     private budgetService: BudgetService // Injecció de dependencies per BudgetService
-  ) {
+  )
+  {
     // Inicializació del formulari
     this.checkBoxForm = this.formBuilder.group({
       checkboxSeo: [false],
