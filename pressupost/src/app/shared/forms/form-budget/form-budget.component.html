@@ -1,0 +1,224 @@
+
+<!-- form-budget.component.html -->
+
+<div class="col-12 col-sm-10 col-lg-10 mx-auto pt-2 pt-sm-4 ">
+
+  <!-- Formulari de serveis -->
+  <form [formGroup]="formBudget" (ngSubmit)="addBudget()">
+    <div formArrayName="serviceFormArray">
+
+      <!-- Aquesta es la part que es repeteix per cada servei -->
+      <div *ngFor="let service of services; let i = index" [formGroupName]="i" class="shadow p-5 p-sm-5 mb-5 rounded-5" [class.checkbox-selected]="serviceSelected(service)">
+        <label
+          class="form-check-label services d-flex flex-column flex-sm-row align-items-sm-center justify-content-between">
+
+          <!-- Aquesta és la secció del nom i descripció del servei -->
+          <div class="col-sm-4 service-info-left d-flex flex-column pe-3 mb-3 mb-sm-0">
+            <div class="service-name">
+              <span class="fw-bold fs-3 text-success">{{service.name}}</span>
+            </div>
+            <div class="service-description">
+              <span class="service-item__name text-success">{{service.description}}</span>
+            </div>
+          </div>
+
+          <!-- Aquesta és la secció del preu del servei -->
+          <div class="col-sm-6 service-info-right d-flex justify-content-between align-items-center">
+            <div class="col service-price">
+              <p class="service-item__price fs-2 mb-0 text-success">{{service.price}}<span
+                  class="service-item__price-symbol fs-6 fw-semibold">€</span></p>
+            </div>
+
+            <!-- Aquesta és la secció del checkbox per afegir el servei -->
+            <div class="col-4 d-flex flex-column pe-3 mb-0">
+              <div class="row">
+                <div class="col service-form-check text-end">
+                  <p class="mb-0">
+                    <input type="checkbox" class="form-check-input mx-2" formControlName="serviceSelected">
+                    <span class="service-item__price-symbol ps-2 text-success fs-6 fw-semibold">Afegir</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </label>
+
+
+        <!-- Aquesta és la secció per afegir pàgines i llenguatges si es selecciona el servei web -->
+        <div class="d-flex flex-column pt-3 gap-2">
+          <div id="contador"
+            *ngIf="service.name === 'Web' && formBudget.get('serviceFormArray')?.get(i.toString())?.get('serviceSelected')?.value">
+
+            <!-- Afegim pàgines al pressupost -->
+            <div class="web-option d-flex align-items-center gap-3 justify-content-sm-end small pb-2">
+              <div class="form-group">
+                <label for="numberOfPages"><i class="bi bi-info-circle info-service" data-bs-toggle="modal"
+                    data-bs-target="#infoWebServicesPanelModalPages"></i> Nombre de pàgines:</label>
+              </div>
+              <div class="number-input d-flex gap-1 align-items-center">
+
+                <!-- Botó per decrementar el nombre de pàgines -->
+                <button (click)="decrementPageCount(i)"></button>
+                <input class="numberOfPages" min="0" name="numberOfPages" type="number" formControlName="numberOfPages"
+                  id="numberOfPages">
+
+                <!-- Botó per incrementar el nombre de pàgines -->
+                <button (click)="incrementPageCount(i)" class="plus"></button>
+              </div>
+            </div>
+
+            <!-- Afegim llenguatges al pressupost -->
+            <div class="web-option d-flex align-items-center gap-3 justify-content-sm-end small pb-2">
+              <div class="form-group">
+                <label for="numberOfLanguages"><i class="bi bi-info-circle info-service" data-bs-toggle="modal"
+                    data-bs-target="#infoWebServicesPanelModalLanguages"></i> Nombre de Llenguatges:</label>
+              </div>
+              <div class="number-input d-flex gap-1 align-items-center">
+
+                <!-- Botó per decrementar el nombre de llenguatges -->
+                <button (click)="decrementLanguageCount(i)"></button>
+                <input class="numberOfLanguages" min="0" name="numberOfLanguages" type="number"
+                  formControlName="numberOfLanguages" id="numberOfLanguages">
+
+                <!-- Botó per incrementar el nombre de llenguatges -->
+                <button (click)="incrementLanguageCount(i)" class="plus"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <!-- Modal de info per el número de pàgines-->
+        <div class="modal fade" id="infoWebServicesPanelModalPages" tabindex="-1"
+          aria-labelledby="infoWebServicesPanelModalPagesLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5 class="modal-title" id="infoWebServicesPanelModalPagesLabel">Número de pàgines</h5>
+              </div>
+              <div class="modal-footer px-5 small text-center mb-3 pb-5">
+                <p>Afegeix les pàgines que tindrà el teu projecte. El cost de cada pàgines és de 30€</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal de info per el número de llenguatges-->
+        <div class="modal fade" id="infoWebServicesPanelModalLanguages" tabindex="-1"
+          aria-labelledby="infoWebServicesPanelModalLanguagesLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <h5 class="modal-title" id="infoWebServicesPanelModalLanguagesLabel">Número de llenguatges</h5>
+              </div>
+              <div class="modal-footer px-5 small text-center mb-3 pb-5">
+                <p>Afegeix les llenguatges que tindrà el teu projecte. El cost de cada llenguatge és de 30€</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- Secció del cost total -->
+    <div class="total-price d-flex justify-content-center justify-content-sm-end pt-2">
+      <div class="total d-flex align-items-center justify-content-between">
+        <div class="total-text">
+          <p class=" fs-4 text-success mb-0">Cost Total: </p>
+        </div>
+        <div class="total-price me-5 pe-5 text-end ps-3 ps-sm-5">
+          <p class="fs-1 mb-0 text-success">{{calculateTotalPrice()}}<span
+              class="service-item__price-symbol fs-5 fw-semibold">€</span>
+          </p>
+        </div>
+      </div>
+    </div>
+
+
+
+    <!-- Secció de dades del client -->
+    <div  class="shadow p-5 p-sm-5 mb-3 rounded-5 mt-4">
+      <div id="afegirPressupostos" class="form-budget__title pb-3">
+        <p class="fw-800 fs-4 mb-0 text-success">Demanar Pressupost: </p>
+      </div>
+
+      <div class="d-flex gap-2 gap-sm-2 flex-column flex-lg-row">
+
+        <!-- nom -->
+        <div class="col-auto col-lg-3">
+
+          <!-- Per validar el formulari utilitzar 'formControlName' -->
+          <input class="form-control" type="text" [class.is-invalid]="formBudget.controls['fName'].errors && submitted" [class.is-valid]="formBudget.controls['fName'].valid && !formBudget.controls['fName'].pristine"
+            formControlName="fName" placeholder="Nom">
+
+          <!-- Missatges d'error -->
+          <div *ngIf="formBudget.controls['fName'].errors && submitted" class="invalid-feedback">
+            <div *ngIf="formBudget.controls['fName'].getError('required')">
+              - Aquest camp és obligatori
+            </div>
+            <div *ngIf="formBudget.controls['fName'].getError('minlength')">
+              - El nom ha de tenir un mínim de 3 caràcters
+            </div>
+            <div *ngIf="formBudget.controls['fName'].getError('onlyLetters')">
+              - Introduïu un nom vàlid sense números
+            </div>
+          </div>
+        </div>
+
+
+        <!-- telèfon -->
+        <div class="col-auto col-lg-3">
+
+          <!-- Per validar el formulari utilitzar 'formControlName' -->
+          <input class="form-control" type="text" [class.is-invalid]="formBudget.controls['fPhone'].errors && submitted" [class.is-valid]="formBudget.controls['fPhone'].valid && !formBudget.controls['fPhone'].pristine" formControlName="fPhone" placeholder="Telèfon">
+
+          <!-- Missatges d'error -->
+          <div *ngIf="formBudget.controls['fPhone'].errors && submitted" class="invalid-feedback">
+            <div *ngIf="formBudget.controls['fPhone'].getError('required')">
+              - Aquest camp és obligatori
+            </div>
+            <div *ngIf="formBudget.controls['fPhone'].getError('onlyPhones')">
+              - Introduïu un número vàlid (9 xifres)
+            </div>
+          </div>
+        </div>
+
+
+        <!-- email -->
+        <div class="col-auto col-lg-3">
+          <input class="form-control" type="text" [class.is-invalid]="formBudget.controls['fEmail'].errors && submitted" [class.is-valid]="formBudget.controls['fEmail'].valid && !formBudget.controls['fEmail'].pristine" formControlName="fEmail" placeholder="Email">
+
+          <!-- Missatges d'error -->
+          <div *ngIf="formBudget.controls['fEmail'].errors && submitted" class="invalid-feedback">
+            <div *ngIf="formBudget.controls['fEmail'].getError('required')">
+              - Aquest camp és obligatori
+            </div>
+            <div *ngIf="formBudget.controls['fEmail'].getError('email')">
+              - Introduïu un email vàlid
+            </div>
+          </div>
+        </div>
+
+
+        <!-- botó de sol·licitar pressupost -->
+        <div class="col-auto col-lg-3">
+          <div class="form-budget__email">
+            <label for="inputEmail" class="visually-hidden"></label>
+            <button type="submit" class="btn btn-success mb-3 fs-7 btn-height full-width">Sol·licitar pressupost <i
+                class="bi bi-arrow-right"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <app-budget-list />
+
+</div>

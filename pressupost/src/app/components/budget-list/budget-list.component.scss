@@ -1,0 +1,58 @@
+
+//budget-list.component.scss
+
+
+// Linea separadora
+.top-line-dotted {
+  border: none;
+  border-top: 3px dashed rgba(33, 37, 41, 0.5);
+  height: 1px;
+  width: 100%;
+}
+
+// Separador de seccions
+.my-6 {
+  margin-top: 6rem;
+  margin-bottom: 4rem;
+}
+
+// Títol del llistat de pressupostos
+.fw-800 {
+  font-weight: 700;
+}
+
+// Preu llistat de pressupostos
+.service-item-price {
+  font-weight: 600;
+}
+
+// Estils del mail i telèfon
+.service-item-email,
+.service-item-phone,
+.service-item-title-total {
+  color: rgba(33, 37, 41, 0.5);
+}
+
+// Estil del total del llistat de pressupost
+.service-item-title-total {
+  padding-right: 10px;
+}
+
+// Padding dels elements del llistat de pressupostos
+.cst-pt {
+  padding-top: 0.6rem;
+}
+
+// Estil del llistat de serveis contractats a cada pressupost
+li {
+  font-size: 12px;
+}
+
+// Estil dels botons de ordenació del llistat de pressupostos
+.btn-sorted {
+  border: none;
+  background-color: transparent;
+}
+.btn-sorted:hover {
+  font-weight: 700;
+}

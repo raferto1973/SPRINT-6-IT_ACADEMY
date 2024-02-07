@@ -1,0 +1,67 @@
+
+<!-- budget-list.component.html -->
+
+<!-- Secció de pressupostos -->
+
+<hr class="top-line-dotted my-6">
+<div id="pressupostos" class="form-budget-title pb-2">
+  <p class="fw-800 fs-4 mb-0 text-success">Pressupost en curs: </p>
+
+  <!-- Botó per a ordenar els pressupostos -->
+  <div class="sorting-options d-flex justify-content-end align-items-center">
+    <div class="search-bar d-flex justify-content-end">
+      <input type="text" [(ngModel)]="searchTerm" class="form-control" placeholder="Buscar per nom...">
+      <button class="btn btn-outline-secondary" (click)="search()"><i class="bi bi-search"></i>🔍</button>
+    </div>
+    <div class="mx-2 px-2">
+      <button class="btn-sorted" (click)="sortBy('name')">Nom</button>
+      <button class="btn-sorted" (click)="sortBy('date')">Data</button>
+      <button class="btn-sorted" (click)="sortBy('price')">Import <i class="bi bi-caret-down"></i></button>
+    </div>
+  </div>
+
+  <!-- Mostra els pressupostos -->
+  <div *ngFor="let budget of sortedBudgets">
+    <div class="shadow p-5 p-sm-5 mb-3 rounded-5 my-5 mt-5">
+
+      <label
+        class="form-check-label services d-flex flex-column flex-sm-row align-items-sm-top justify-content-between">
+
+        <!-- Secció => client info -->
+        <div class="col-sm-4 service-info-left d-flex flex-column pe-3 mb-3 mb-sm-0">
+          <div class="service-name">
+            <span class="fw-bold fs-3">{{ budget.clientName }}</span>
+          </div>
+          <div class="service-email">
+            <span class="service-item-email">{{budget.email}}</span>
+          </div>
+          <div class="service-phone">
+            <span class="service-item-phone">{{budget.phone}}</span>
+          </div>
+        </div>
+
+        <!-- Secció => serveis contractats -->
+        <div class="col-sm-6 service-info-right d-flex justify-content-between align-items-top cst-pt">
+          <div class="col">
+            <p class="ms-2 mt-3 mb-1">Serveis contractats:</p>
+            <div class="">
+              <ul>
+                <li *ngFor="let service of budget.serviceName">{{ service }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Secció => preu total -->
+        <div class="col-2 d-flex flex-column pe-3 mb-0 align-items-top cst-pt">
+          <div class="row">
+            <div class="col text-end pr-2">
+              <p class="mb-0 service-item-title-total"> Total:</p>
+              <p class="service-item-price fs-1 mb-0">{{budget.totalPrice}}<span
+                  class="service-item-price-symbol fs-5 fw-semibold">€</span></p>
+            </div>
+          </div>
+        </div>
+      </label>
+    </div>
+  </div>
