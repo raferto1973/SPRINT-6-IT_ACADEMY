@@ -26,14 +26,18 @@ export class FormBudgetComponent implements OnInit {
 
   // Formulari principal
   formBudget: FormGroup;
+  extraPrice: any;
+  shareableURL: string = ''; // Variable per emmagatzemar l'URL de compartir
 
-  ngOnInit() {
+  ngOnInit(): void{
     this.services = this.servicesService.dataService;
   }
 
+
   constructor(
     private servicesService: ServicesService,
-    private fb: FormBuilder
+    private fb: FormBuilder,          // Injecta FormBuilder
+
   ) {
 
     // Constructor de serveis
@@ -65,6 +69,9 @@ export class FormBudgetComponent implements OnInit {
   // Verifica que l'usuari s'ha enviat amb èxit abans de mostrar-lo. Una variable booleana que s'utilitza per rastrejar si el formulari s'ha enviat amb èxit.
   formSubmittedSuccessfully = false;
 
+
+
+
   // Funció per obtenir el control del formulari
   serviceSelected(service: any): boolean {
     const index = this.services.indexOf(service);
@@ -91,13 +98,14 @@ export class FormBudgetComponent implements OnInit {
     );
   }
 
-  // Funció per incrementar pàgines
+   // Funció per incrementar pàgines
   incrementPageCount(index: number): void {
     let control = (this.formBudget.get('serviceFormArray') as FormArray)
       .at(index)
       .get('numberOfPages');
     if (control) {
       control.setValue(control.value + 1);
+
     }
   }
 
@@ -134,65 +142,65 @@ export class FormBudgetComponent implements OnInit {
   // Funció per calcular el preu total
   calculateTotalPrice(): number {
     let totalPrice = 0;
-    const serviceFormArray = this.formBudget.get(
-      'serviceFormArray'
-    ) as FormArray;
+    this.extraPrice = 0; // Reseteja el valor de extraPrice cada vegada que es calcula
 
+    const serviceFormArray = this.formBudget.get('serviceFormArray') as FormArray;
     serviceFormArray.controls.forEach((control, index) => {
       if (control.get('serviceSelected')?.value) {
         totalPrice += this.services[index].price;
-
-        // Si el servei és Web, afegir el preu de les pàgines i idiomes
         if (this.services[index].name === 'Web') {
-          totalPrice += control.get('numberOfPages')?.value * 30; // Asumiendo 30€ por página
-          totalPrice += control.get('numberOfLanguages')?.value * 30; // Asumiendo 30€ por idioma
+          this.extraPrice += (control.get('numberOfPages')?.value)*(control.get('numberOfLanguages')?.value)*30 ;
         }
       }
     });
-    return totalPrice;
+    // Ara extraPrice s'actualitza directament, així que només retornem totalPrice
+    return totalPrice + this.extraPrice;
   }
+
 
   // Funció per afegir un pressupost
   addBudget() {
-    this.submitted = true;
+    this.submitted = true;                              // Marca el formulari com a 'intentat d'enviar'
+
     if (this.formBudget.valid) {
       let servicesDescriptions: string[] = [];
       let totalPrice = this.calculateTotalPrice();
 
       const servicesControls = (
         this.formBudget.get('serviceFormArray') as FormArray
-      ).controls;
+        ).controls;
 
-      servicesControls.forEach((control, index) => {
-        if (control.value.serviceSelected) {
-          let description = this.services[index].name;
-          let extraDetails = [];
-          if (this.services[index].name === 'Web') {
-            if (control.value.numberOfPages)
+        servicesControls.forEach((control, index) => {
+          if (control.value.serviceSelected) {
+            let description = this.services[index].name;
+            let extraDetails = [];
+            if (this.services[index].name === 'Web') {
+              if (control.value.numberOfPages)
               extraDetails.push(`${control.value.numberOfPages} pàgines`);
             if (control.value.numberOfLanguages)
-              extraDetails.push(
-                `${control.value.numberOfLanguages} llenguatges`
-              );
-            description += ` (${extraDetails.join(', ')})`;
-          }
-          servicesDescriptions.push(description);
+            extraDetails.push(
+          `${control.value.numberOfLanguages} llenguatges`
+          );
+          description += ` (${extraDetails.join(', ')})`;
         }
-      });
+        servicesDescriptions.push(description);
+      }
+    });
 
-      const newBudget: Budget = {
-        id: 0,                                        // Aquest valor s'assignarà automàticament i únic
-        clientName: this.formBudget.value.fName,
-        phone: this.formBudget.value.fPhone,
-        email: this.formBudget.value.fEmail,
-        serviceName: servicesDescriptions,
-        totalPrice: totalPrice,
-      };
+    const newBudget: Budget = {
+      id: 0,                                        // Aquest valor s'assignarà automàticament i únic
+      clientName: this.formBudget.value.fName,
+      phone: this.formBudget.value.fPhone,
+      email: this.formBudget.value.fEmail,
+      serviceName: servicesDescriptions,
+      totalPrice: totalPrice,
+    };
 
-      this.servicesService.addBudget(newBudget);
-      this.formSubmittedSuccessfully = true;
-      this.formBudget.reset();
-      this.submitted = false;
+    this.servicesService.addBudget(newBudget);
+    this.formSubmittedSuccessfully = true;
+    this.formBudget.reset();
+    this.submitted = false;
+
     }
   }
 }

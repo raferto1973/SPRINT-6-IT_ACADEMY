@@ -41,10 +41,11 @@ export class ServicesService {
       price: 500,
       selected: false,
     },
+
   ];
 
 
-  // Defineix els pressupostos inicials
+  // Defineix els pressupostos inicials de exemple
   private initialBudgets: Budget[] = [
 
     {
@@ -68,8 +69,16 @@ export class ServicesService {
       clientName: 'Pepe García',
       email: 'pepe@gmail.com',
       phone: '631 597 179',
-      serviceName: ['SEO'],
+      serviceName: ['Seo'],
       totalPrice: 300,
+    },
+    {
+      id: 3,
+      clientName: 'Alex Fernandez',
+      email: 'alex@gmail.com',
+      phone: '630 050 991',
+      serviceName: ['Ads'],
+      totalPrice: 400,
     },
   ];
 

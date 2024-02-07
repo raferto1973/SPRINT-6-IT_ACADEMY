@@ -52,8 +52,15 @@
             <!-- Afegim pàgines al pressupost -->
             <div class="web-option d-flex align-items-center gap-3 justify-content-sm-end small pb-2">
               <div class="form-group">
-                <label for="numberOfPages"><i class="bi bi-info-circle info-service" data-bs-toggle="modal"
-                    data-bs-target="#infoWebServicesPanelModalPages"></i> Nombre de pàgines:</label>
+
+                <!-- Botó per obrir el modal -->
+                <i class="bi bi-info-circle info-service"  data-bs-toggle="modal" data-bs-target="#infoWebServicesPanelModalPages">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi        bi-info-circle me-2" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                  </svg>
+                </i>
+                <label for="numberOfPages"> Nombre de pàgines:</label>
               </div>
               <div class="number-input d-flex gap-1 align-items-center">
 
@@ -70,6 +77,12 @@
             <!-- Afegim llenguatges al pressupost -->
             <div class="web-option d-flex align-items-center gap-3 justify-content-sm-end small pb-2">
               <div class="form-group">
+                <i class="bi bi-info-circle info-service"  data-bs-toggle="modal" data-bs-target="#infoWebServicesPanelModalLanguages">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi        bi-info-circle me-2" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16"/>
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0"/>
+                  </svg>
+                </i>
                 <label for="numberOfLanguages"><i class="bi bi-info-circle info-service" data-bs-toggle="modal"
                     data-bs-target="#infoWebServicesPanelModalLanguages"></i> Nombre de Llenguatges:</label>
               </div>
@@ -84,6 +97,11 @@
                 <button (click)="incrementLanguageCount(i)" class="plus"></button>
               </div>
             </div>
+
+            <!-- Cost extra -->
+            <div class="container">
+              <p class="me-3 mt-3 fs-6 text-end">Cost extra: {{ extraPrice }} €</p>
+            </div>
           </div>
         </div>
 
@@ -91,7 +109,7 @@
         <!-- Modal de info per el número de pàgines-->
         <div class="modal fade" id="infoWebServicesPanelModalPages" tabindex="-1"
           aria-labelledby="infoWebServicesPanelModalPagesLabel" aria-hidden="true">
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -109,7 +127,7 @@
         <!-- Modal de info per el número de llenguatges-->
         <div class="modal fade" id="infoWebServicesPanelModalLanguages" tabindex="-1"
           aria-labelledby="infoWebServicesPanelModalLanguagesLabel" aria-hidden="true">
-          <div class="modal-dialog">
+          <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
               <div class="modal-header">
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -125,7 +143,6 @@
         </div>
       </div>
     </div>
-
 
     <!-- Secció del cost total -->
     <div class="total-price d-flex justify-content-center justify-content-sm-end pt-2">
@@ -144,9 +161,9 @@
 
 
     <!-- Secció de dades del client -->
-    <div  class="shadow p-5 p-sm-5 mb-3 rounded-5 mt-4">
-      <div id="afegirPressupostos" class="form-budget__title pb-3">
-        <p class="fw-800 fs-4 mb-0 text-success">Demanar Pressupost: </p>
+    <div id="afegirPressupostos" class="shadow p-5 p-sm-5 mb-3 rounded-5 mt-5">
+      <div  class="form-budget__title pb-3">
+        <p class="fw-800 fs-4 mb-0 mt-3 text-success">Demanar Pressupost: </p>
       </div>
 
       <div class="d-flex gap-2 gap-sm-2 flex-column flex-lg-row">
@@ -159,7 +176,7 @@
             formControlName="fName" placeholder="Nom">
 
           <!-- Missatges d'error -->
-          <div *ngIf="formBudget.controls['fName'].errors && submitted" class="invalid-feedback">
+          <div *ngIf="formBudget.controls['fName'].touched && formBudget.controls['fName'].invalid && submitted" class="invalid-feedback">
             <div *ngIf="formBudget.controls['fName'].getError('required')">
               - Aquest camp és obligatori
             </div>
@@ -180,7 +197,7 @@
           <input class="form-control" type="text" [class.is-invalid]="formBudget.controls['fPhone'].errors && submitted" [class.is-valid]="formBudget.controls['fPhone'].valid && !formBudget.controls['fPhone'].pristine" formControlName="fPhone" placeholder="Telèfon">
 
           <!-- Missatges d'error -->
-          <div *ngIf="formBudget.controls['fPhone'].errors && submitted" class="invalid-feedback">
+          <div *ngIf="formBudget.controls['fPhone'].touched && formBudget.controls['fPhone'].invalid && submitted" class="invalid-feedback">
             <div *ngIf="formBudget.controls['fPhone'].getError('required')">
               - Aquest camp és obligatori
             </div>
@@ -196,7 +213,7 @@
           <input class="form-control" type="text" [class.is-invalid]="formBudget.controls['fEmail'].errors && submitted" [class.is-valid]="formBudget.controls['fEmail'].valid && !formBudget.controls['fEmail'].pristine" formControlName="fEmail" placeholder="Email">
 
           <!-- Missatges d'error -->
-          <div *ngIf="formBudget.controls['fEmail'].errors && submitted" class="invalid-feedback">
+          <div *ngIf="formBudget.controls['fPhone'].touched && formBudget.controls['fEmail'].invalid && submitted" class="invalid-feedback">
             <div *ngIf="formBudget.controls['fEmail'].getError('required')">
               - Aquest camp és obligatori
             </div>
@@ -211,7 +228,7 @@
         <div class="col-auto col-lg-3">
           <div class="form-budget__email">
             <label for="inputEmail" class="visually-hidden"></label>
-            <button type="submit" class="btn btn-success mb-3 fs-7 btn-height full-width">Sol·licitar pressupost <i
+            <button type="submit" class="btn btn-success mb-3 fs-6 btn-height full-width">Guardar <i
                 class="bi bi-arrow-right"></i></button>
           </div>
         </div>

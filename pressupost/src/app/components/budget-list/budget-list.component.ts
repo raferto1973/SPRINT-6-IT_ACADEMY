@@ -33,16 +33,13 @@ export class BudgetListComponent implements OnInit {
     });
   }
 
-  // Mètode per buscar els pressupostos
-  search(): void {
-    if (!this.searchTerm.trim()) {
 
-      // Si el terme de búsqueda està buit, mostra tots els pressupostos
+  // Mètode per filtrar els pressupostos de forma dinàmica
+  filterBudgets(): void {
+    if (!this.searchTerm.trim()) {
       this.sortedBudgets = [...this.budgets];
     } else {
-
-      // Si el terme de búsqueda no està buit, mostra els pressupostos que contenen el terme de búsqueda
-      this.sortedBudgets = this.budgets.filter((budget) =>
+      this.sortedBudgets = this.budgets.filter(budget =>
         budget.clientName.toLowerCase().includes(this.searchTerm.toLowerCase())
       );
     }
@@ -51,15 +48,13 @@ export class BudgetListComponent implements OnInit {
   // Mètode per ordenar els pressupostos
   sortBy(criteria: string): void {
     if (criteria === 'date') {
-      this.sortedBudgets = [...this.budgets].sort((a, b) => a.id - b.id);
+      this.sortedBudgets = this.sortedBudgets.sort((a, b) => a.id - b.id);
     } else if (criteria === 'price') {
-      this.sortedBudgets = [...this.budgets].sort(
-        (a, b) => a.totalPrice - b.totalPrice
-      );
+      this.sortedBudgets = this.sortedBudgets.sort((a, b) => a.totalPrice - b.totalPrice);
     } else if (criteria === 'name') {
-      this.sortedBudgets = [...this.budgets].sort((a, b) =>
-        a.clientName.localeCompare(b.clientName)
-      );
+      this.sortedBudgets = this.sortedBudgets.sort((a, b) => a.clientName.localeCompare(b.clientName));
     }
   }
+
+
 }
