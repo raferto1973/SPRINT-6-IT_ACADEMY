@@ -2,14 +2,15 @@
 // Budget model
 
 
-// Aquest model defineix l'estructura d'un pressupost. Un pressupost té els següents camps
+// Aquest model defineix l'estructura d'un pressupost.
+
 export interface Budget {
 
   id:           number;
   clientName:   string;
   phone:        string;
   email:        string;
-  serviceName:  string[];
+  serviceName:  string[];  // Array dels serveis pressupostats
   totalPrice:   number;
 
 }

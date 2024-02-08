@@ -1,9 +1,11 @@
 
 //header.component.scss
 
+// Estils per l'imatge de fons
 .container-background {
   background: url("../../../assets/border-5805478_1280\ \(1\).jpg");
   background-position: center top;
   background-repeat: no-repeat;
-  margin-top: 30px;
+  margin-top: 40px;
+  border-radius: 100px;
 }
