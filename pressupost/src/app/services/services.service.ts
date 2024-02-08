@@ -46,41 +46,7 @@ export class ServicesService {
 
 
   // Defineix els pressupostos inicials de exemple
-  private initialBudgets: Budget[] = [
-
-    {
-      id: 0,
-      clientName: 'Rafa Fernandez',
-      email: 'rafa.fernandez@gmail.com',
-      phone: '652 652 652',
-      serviceName: ['Web (1 pàgines, 1 llenguatges)', 'SEO'],
-      totalPrice: 860,
-    },
-    {
-      id: 1,
-      clientName: 'Laura Caparrós',
-      email: 'laura.caparros@gmail.com',
-      phone: '630 630 630',
-      serviceName: ['Ads', 'SEO'],
-      totalPrice: 700,
-    },
-    {
-      id: 2,
-      clientName: 'Pepe García',
-      email: 'pepe@gmail.com',
-      phone: '631 597 179',
-      serviceName: ['Seo'],
-      totalPrice: 300,
-    },
-    {
-      id: 3,
-      clientName: 'Alex Fernandez',
-      email: 'alex@gmail.com',
-      phone: '630 050 991',
-      serviceName: ['Ads'],
-      totalPrice: 400,
-    },
-  ];
+  private initialBudgets: Budget[] = [];
 
   //  Crea un BehaviorSubject amb els pressupostos inicials
   private budgetsList = new BehaviorSubject<Budget[]>(this.initialBudgets);

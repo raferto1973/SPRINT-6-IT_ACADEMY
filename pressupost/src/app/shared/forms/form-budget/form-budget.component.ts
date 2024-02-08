@@ -188,7 +188,7 @@ export class FormBudgetComponent implements OnInit {
     });
 
     const newBudget: Budget = {
-      id: 0,                                        // Aquest valor s'assignarà automàticament i únic
+      id: 0,                                     // Aquest valor s'assignarà automàticament i únic
       clientName: this.formBudget.value.fName,
       phone: this.formBudget.value.fPhone,
       email: this.formBudget.value.fEmail,
